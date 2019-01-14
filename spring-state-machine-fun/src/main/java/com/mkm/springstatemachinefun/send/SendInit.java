@@ -2,7 +2,7 @@ package com.mkm.springstatemachinefun.send;
 
 import com.mkm.springstatemachinefun.consts.UnitPackEvents;
 import com.mkm.springstatemachinefun.consts.UnitPackStates;
-import com.mkm.springstatemachinefun.model.PLC;
+import com.mkm.springstatemachinefun.model.socket.PLC;
 import com.mkm.springstatemachinefun.model.udosms.UdoSMSMessage;
 import com.mkm.springstatemachinefun.model.udosms.consts.MessageState;
 import com.mkm.springstatemachinefun.model.udosms.consts.ModuleCommand;
@@ -56,7 +56,7 @@ public class SendInit implements Action<UnitPackStates, UnitPackEvents> {
             Socket socket = plc.getSocket();
 //            SocketUtils.write(msg, socket);
             SocketUtils.write(udoSMSMessage.toUdoSMS(),socket);
-            messageUtils.readAnswer(messages, socket);
+//            messageUtils.readAnswer(messages, socket);
         } catch (IOException e) {
             e.printStackTrace();
         }

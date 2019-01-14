@@ -2,7 +2,7 @@ package com.mkm.springstatemachinefun.send;
 
 import com.mkm.springstatemachinefun.consts.UnitPackEvents;
 import com.mkm.springstatemachinefun.consts.UnitPackStates;
-import com.mkm.springstatemachinefun.model.PLC;
+import com.mkm.springstatemachinefun.model.socket.PLC;
 import com.mkm.springstatemachinefun.model.udosms.UdoSMSMessage;
 import com.mkm.springstatemachinefun.model.udosms.consts.MessageState;
 import com.mkm.springstatemachinefun.model.udosms.consts.ModuleCommand;
@@ -19,7 +19,6 @@ import org.springframework.statemachine.annotation.WithStateMachine;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
