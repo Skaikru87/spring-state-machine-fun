@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.config.EnableStateMachine;
 
-@EnableStateMachine
+//@EnableStateMachine
 @SpringBootApplication
-public class SpringStateMachineFunApplication implements CommandLineRunner {
+public class SpringStateMachineFunApplication  {
 
 //	public final StateMachine<UnitPackStates, UnitPackEvents> stateMachine;
 //
@@ -29,14 +29,14 @@ public class SpringStateMachineFunApplication implements CommandLineRunner {
 		SpringApplication.run(SpringStateMachineFunApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-//		stateMachine.start();
-//
-//		stateMachine.sendEvent(UnitPackEvents.CONNECT);
-//		stateMachine.sendEvent(UnitPackEvents.INIT);
-//		stateMachine.sendEvent(UnitPackEvents.FINISHING_TASK);
-	}
+//	@Override
+//	public void run(String... args) throws Exception {
+////		stateMachine.start();
+////
+////		stateMachine.sendEvent(UnitPackEvents.CONNECT);
+////		stateMachine.sendEvent(UnitPackEvents.INITIALIZED);
+////		stateMachine.sendEvent(UnitPackEvents.FINISHING_TASK);
+//	}
 
 }
 

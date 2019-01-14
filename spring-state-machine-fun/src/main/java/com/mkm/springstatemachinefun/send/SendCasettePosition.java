@@ -25,7 +25,7 @@ import java.util.List;
 
 @Slf4j
 @WithStateMachine
-public class SendInit implements Action<UnitPackStates, UnitPackEvents> {
+public class SendCasettePosition implements Action<UnitPackStates, UnitPackEvents> {
 
     @Autowired
     MessageUtils messageUtils;
@@ -39,16 +39,19 @@ public class SendInit implements Action<UnitPackStates, UnitPackEvents> {
     @Override
     public void execute(StateContext<UnitPackStates, UnitPackEvents> stateContext) {
 
-        log.info("initializing unit pack v2");
+        log.info("setting casette position");
 
-//        String msg = "$089b6bf&0000077&PAKOWARKA&INITIALIZATION&QQ&#";
+       String casettePosition = (String) stateContext.getExtendedState().getVariables().get("casettePosition");
+
+        ArrayList <String> parameter = new ArrayList<>();
+        parameter.add(casettePosition);
 
         UdoSMSMessage udoSMSMessage = new UdoSMSMessage();
         udoSMSMessage.setCommandId(idGenerator.cycleIdGenerated());
         udoSMSMessage.setCycleId(idGenerator.getNewCommandID());
         udoSMSMessage.setModuleName(ModuleName.PAKOWARKA);
-        udoSMSMessage.setModuleCommand(ModuleCommand.INITIALIZATION);
-        udoSMSMessage.setModuleParameters(new ArrayList<>(Collections.singletonList(Boolean.TRUE.toString().toUpperCase())));
+        udoSMSMessage.setModuleCommand(ModuleCommand.CHANGE_CASSETTE_POSITION);
+        udoSMSMessage.setModuleParameters(parameter);
         udoSMSMessage.setMessageState(MessageState.QQ);
 
         try {
@@ -62,10 +65,5 @@ public class SendInit implements Action<UnitPackStates, UnitPackEvents> {
         }
 
 
-//        StateMachine<UnitPackStates, UnitPackEvents> stateMachine = stateContext.getStateMachine();
-//
-//        stateMachine.sendEvent(UnitPackEvents.FINISHING_TASK);
     }
-
-
 }

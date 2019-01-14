@@ -3,6 +3,7 @@ package com.mkm.springstatemachinefun.config;
 import com.mkm.springstatemachinefun.consts.UnitPackEvents;
 import com.mkm.springstatemachinefun.consts.UnitPackStates;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.messaging.Message;
 import org.springframework.statemachine.listener.StateMachineListenerAdapter;
 import org.springframework.statemachine.state.State;
 import org.springframework.statemachine.transition.Transition;
@@ -18,5 +19,10 @@ public class StateMachineListener extends StateMachineListenerAdapter<UnitPackSt
     @Override
     public void transitionStarted(Transition<UnitPackStates, UnitPackEvents> transition) {
         log.info("transition started! target state: {}", transition.getTarget().getId().name());
+    }
+
+    @Override
+    public void eventNotAccepted(Message<UnitPackEvents> event) {
+        log.info("Event not accepted: {}", event.getPayload());
     }
 }
