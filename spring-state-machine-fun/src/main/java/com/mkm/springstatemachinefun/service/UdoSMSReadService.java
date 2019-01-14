@@ -2,6 +2,8 @@ package com.mkm.springstatemachinefun.service;
 
 import com.mkm.springstatemachinefun.model.socket.ClientsPLC;
 import com.mkm.springstatemachinefun.model.socket.PLC;
+import com.mkm.springstatemachinefun.model.udosms.UdoSMSMessage;
+import com.mkm.springstatemachinefun.model.udosms.UdoSMSParser;
 import com.mkm.springstatemachinefun.utils.Colours;
 import com.mkm.springstatemachinefun.utils.socketUtils.SocketUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -14,14 +16,12 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.Executor;
 
 @Slf4j
 @Service
 public class UdoSMSReadService {
-
-//    @Autowired
-//    Executor taskExecutorBean;
 
     @Autowired
     @Qualifier("taskExecutorBean")
@@ -51,7 +51,12 @@ public class UdoSMSReadService {
                 try {
 
                     String retrieveMessage = socketUtils.read(plc.getSocket());
-                    log.info(Colours.ANSI_CYAN + "received: {}" + Colours.ANSI_RESET, retrieveMessage);
+//                    log.info(Colours.ANSI_CYAN + "received: {}" + Colours.ANSI_RESET, retrieveMessage);
+                    List<UdoSMSMessage> udoSMSMessage = UdoSMSParser.parseMessage(retrieveMessage, plc.getSocket());
+                    for (UdoSMSMessage sms : udoSMSMessage) {
+
+                        log.info(Colours.ANSI_CYAN + "received: {}" + Colours.ANSI_RESET, sms.toUdoSMS() != null ? sms.toUdoSMS() : "not udo sms: " + retrieveMessage);
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();

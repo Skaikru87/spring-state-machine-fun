@@ -1,5 +1,5 @@
 package com.mkm.springstatemachinefun.model.udosms.consts;
 
-public enum ModuleName {
-    PAKOWARKA, BANNER
+public enum MessageSource {
+    SENT, RECEIVED
 }

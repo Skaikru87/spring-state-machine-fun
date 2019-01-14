@@ -20,7 +20,7 @@ import static com.mkm.springstatemachinefun.utils.Colours.ANSI_RESET;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UdoSMSMessage implements Cloneable {
+public class UdoSMSMessage extends Message implements Cloneable {
 
     public static final int MAX_CYCLE_ID_LENGTH = 36;
     public static final int MAX_COMMAND_ID_LENGTH = 48;
@@ -54,7 +54,7 @@ public class UdoSMSMessage implements Cloneable {
         try {
             return (UdoSMSMessage) super.clone();
         } catch (CloneNotSupportedException e) {
-           log.debug( "{} while clonning UdoSMSMessage", e.getMessage());
+            log.debug("{} while clonning UdoSMSMessage", e.getMessage());
             return null;
         }
     }
@@ -66,6 +66,7 @@ public class UdoSMSMessage implements Cloneable {
             return build(messageInfo, Colours.DEFAULT, Colours.DEFAULT);
         } catch (NullPointerException e) {
             log.warn("Exception while toUdoSMS(): {}", e);
+
             return "Catched NullPointerException.";
         }
     }
