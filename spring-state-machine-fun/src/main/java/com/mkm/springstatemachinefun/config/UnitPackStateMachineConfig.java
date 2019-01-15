@@ -2,10 +2,7 @@ package com.mkm.springstatemachinefun.config;
 
 import com.mkm.springstatemachinefun.consts.UnitPackEvents;
 import com.mkm.springstatemachinefun.consts.UnitPackStates;
-import com.mkm.springstatemachinefun.send.EndPackingTask;
-import com.mkm.springstatemachinefun.send.SendCasettePosition;
-import com.mkm.springstatemachinefun.send.SendConnect;
-import com.mkm.springstatemachinefun.send.SendInit;
+import com.mkm.springstatemachinefun.send.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -30,6 +27,8 @@ public class UnitPackStateMachineConfig extends StateMachineConfigurerAdapter<Un
     EndPackingTask endPackingTask;
     @Autowired
     SendCasettePosition sendCasettePosition;
+    @Autowired
+    SendReset sendReset;
 
 
     @Override
@@ -55,6 +54,7 @@ public class UnitPackStateMachineConfig extends StateMachineConfigurerAdapter<Un
                 .and()
                 .withExternal()
                 .source(UnitPackStates.CASSETTE_POSITION).target(UnitPackStates.PACKING_TASK_DONE).event(UnitPackEvents.FINISHING_TASK).action(endPackingTask)
+                .and().withExternal().target(UnitPackStates.RESET_COLD).event(UnitPackEvents.RESSETING).action(sendReset)
 
         ;
     }

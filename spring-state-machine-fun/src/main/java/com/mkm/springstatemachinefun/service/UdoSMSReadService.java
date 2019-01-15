@@ -51,7 +51,6 @@ public class UdoSMSReadService {
                 try {
 
                     String retrieveMessage = socketUtils.read(plc.getSocket());
-//                    log.info(Colours.ANSI_CYAN + "received: {}" + Colours.ANSI_RESET, retrieveMessage);
                     List<UdoSMSMessage> udoSMSMessage = UdoSMSParser.parseMessage(retrieveMessage, plc.getSocket());
                     for (UdoSMSMessage sms : udoSMSMessage) {
 

@@ -19,16 +19,11 @@ import org.springframework.statemachine.annotation.WithStateMachine;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+
 
 @Slf4j
 @WithStateMachine
-public class SendInit implements Action<UnitPackStates, UnitPackEvents> {
-
-    @Autowired
-    MessageUtils messageUtils;
+public class SendReset implements Action<UnitPackStates, UnitPackEvents> {
 
     @Autowired
     PLC plc;
@@ -38,38 +33,25 @@ public class SendInit implements Action<UnitPackStates, UnitPackEvents> {
 
     @Override
     public void execute(StateContext<UnitPackStates, UnitPackEvents> stateContext) {
+        log.info("resetting unit pack v2");
 
-        log.info("initializing unit pack v2");
-
-//        String msg = "$089b6bf&0000077&PAKOWARKA&INITIALIZATION&QQ&#";
 
         UdoSMSMessage udoSMSMessage = new UdoSMSMessage();
         udoSMSMessage.setCommandId(idGenerator.cycleIdGenerated());
         udoSMSMessage.setCycleId(idGenerator.getNewCommandID());
         udoSMSMessage.setModuleName(ModuleName.PAKOWARKA);
-        udoSMSMessage.setModuleCommand(ModuleCommand.INITIALIZATION);
+        udoSMSMessage.setModuleCommand(ModuleCommand.RESET_COLD);
         ArrayList<String> parameters = new ArrayList<>();
         parameters.add(Boolean.TRUE.toString().toUpperCase());
         udoSMSMessage.setModuleParameters(parameters);
-
-//        udoSMSMessage.setModuleParameters(new ArrayList<>(Collections.singletonList(Boolean.TRUE.toString().toUpperCase())));
         udoSMSMessage.setMessageState(MessageState.QQ);
 
         try {
-            List<String> messages = new LinkedList<>();
             Socket socket = plc.getSocket();
-//            SocketUtils.write(msg, socket);
-            SocketUtils.write(udoSMSMessage.toUdoSMS(),socket);
-//            messageUtils.readAnswer(messages, socket);
+            SocketUtils.write(udoSMSMessage.toUdoSMS(), socket);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
-//        StateMachine<UnitPackStates, UnitPackEvents> stateMachine = stateContext.getStateMachine();
-//
-//        stateMachine.sendEvent(UnitPackEvents.FINISHING_TASK);
     }
-
-
 }

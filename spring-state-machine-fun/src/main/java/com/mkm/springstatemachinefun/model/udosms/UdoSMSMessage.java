@@ -86,7 +86,6 @@ public class UdoSMSMessage extends Message implements Cloneable {
     public String build(String[] messageInfo, String color, String reset) {
 
         try {
-
             final int BUFFER_SIZE = Arrays.stream(messageInfo).mapToInt(s -> s.length()).sum()
                     + messageState.toString().length() + moduleParameters.stream().mapToInt(s -> s.length()).sum();
             final int SPECIAL_CHARS = 5 + moduleParameters.size();

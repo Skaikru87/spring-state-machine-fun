@@ -31,8 +31,8 @@ public class UnitPackService{
 
     public void startPacking() {
         stateMachine.sendEvent(UnitPackEvents.INIT);
-        stateMachine.sendEvent(UnitPackEvents.SEND_CASETTE_POSITION);
-        stateMachine.sendEvent(UnitPackEvents.FINISHING_TASK);
+//        stateMachine.sendEvent(UnitPackEvents.SEND_CASETTE_POSITION);
+//        stateMachine.sendEvent(UnitPackEvents.FINISHING_TASK);
     }
 
 
@@ -41,5 +41,9 @@ public class UnitPackService{
         stateMachine.sendEvent(UnitPackEvents.INIT);
         stateMachine.sendEvent(UnitPackEvents.SEND_CASETTE_POSITION);
         stateMachine.sendEvent(UnitPackEvents.FINISHING_TASK);
+    }
+
+    public void reset() {
+        stateMachine.sendEvent(UnitPackEvents.RESSETING);
     }
 }

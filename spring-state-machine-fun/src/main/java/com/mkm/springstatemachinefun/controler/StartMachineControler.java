@@ -15,24 +15,31 @@ public class StartMachineControler {
     UnitPackService unitPackService;
 
     @GetMapping("/connect")
-    public String connectUnitPack(){
+    public String connectUnitPack() {
         log.info("starting from controler");
         unitPackService.connect();
         return "connected";
     }
 
     @GetMapping("/start")
-    public String startPacking(){
+    public String startPacking() {
         log.info("started packing");
         unitPackService.startPacking();
         return "started";
     }
 
     @GetMapping("/start/{casettePosition}")
-    public String startPacking(@PathVariable String casettePosition){
+    public String startPacking(@PathVariable String casettePosition) {
         log.info("started packing");
         unitPackService.startPacking(casettePosition);
         return "started";
+    }
+
+    @GetMapping("/reset")
+    public String reset() {
+        log.info("received reset");
+        unitPackService.reset();
+        return "reset";
     }
 
 }
